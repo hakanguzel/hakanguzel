@@ -9,8 +9,8 @@ class About extends Me
     {
         return [
             'workplace' => [
-                'company' => 'Digidea',
-                'position' => 'Backend Developer'         
+                'company' => 'Farmazon',
+                'position' => 'Software Engineer'         
             ]
         ];
     }
@@ -18,9 +18,9 @@ class About extends Me
     public function getDailyKnowledge(): array
     {
         return [
+            NetCore::class,
             Php::class,
-            NodeJS::class,
-            NetCore::class
+            NodeJS::class
         ];
     }
 
