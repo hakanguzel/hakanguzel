@@ -1,32 +1,59 @@
-```php
-<?php
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
 
-namespace HakanGuzel;
-
-class About extends Me
+namespace HakanGuzel
 {
-    public function getCurrentWorkplace(): array
+    public abstract class Me { }
+
+    public sealed record Workplace(string Company, string Position);
+
+    public interface IAbout
     {
-        return [
-            'workplace' => [
-                'company' => 'Rise Technology, Consulting & Academy',
-                'position' => 'Software Engineer'         
-            ]
-        ];
+        Workplace CurrentWorkplace { get; }
+        IReadOnlyList<string> DailyKnowledge { get; }
+        string FutureGoal { get; }
+        string ToJson();
     }
 
-    public function getDailyKnowledge(): array
+    public sealed class About : Me, IAbout
     {
-        return [
-            NetCore::class,
-            Php::class,
-            NodeJS::class
-        ];
-    }
+        public Workplace CurrentWorkplace { get; } = new("Rise Technology, Consulting & Academy", "Software Engineer");
 
-    public function getFutureGoal(): string
-    {
-        return 'To contribute to open source.';
+        public IReadOnlyList<string> DailyKnowledge { get; } = new[]
+        {
+            ".NET",
+            "ASP.NET Core",
+            "C#",
+            "Entity Framework Core",
+            "REST & gRPC",
+            "SQL Server",
+            "PostgreSQL",
+            "Redis",
+            "Azure Service Bus",
+            "Apache Kafka",
+            "Docker",
+            "Kubernetes (AKS)",
+            "Azure API Management",
+            "Azure DevOps (CI/CD)",
+            "Terraform",
+            "OpenTelemetry",
+            "Serilog + ELK",
+            "Prometheus + Grafana"
+        };
+
+        public string FutureGoal { get; } = "To contribute to open source.";
+
+        public string ToJson() =>
+            JsonSerializer.Serialize(new
+            {
+                workplace = new
+                {
+                    company = CurrentWorkplace.Company,
+                    position = CurrentWorkplace.Position
+                },
+                dailyKnowledge = DailyKnowledge,
+                futureGoal = FutureGoal
+            }, new JsonSerializerOptions { WriteIndented = true });
     }
 }
-```
