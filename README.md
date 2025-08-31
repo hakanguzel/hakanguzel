@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text.Json;
-
-namespace HakanGuzel
-{
-    public abstract class Me { }
-
     public sealed record Workplace(string Company, string Position);
 
     public interface IAbout
@@ -56,4 +48,3 @@ namespace HakanGuzel
                 futureGoal = FutureGoal
             }, new JsonSerializerOptions { WriteIndented = true });
     }
-}
